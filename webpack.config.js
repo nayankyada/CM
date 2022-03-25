@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 module.exports = {
   mode: "development",
   entry: {
@@ -7,22 +8,22 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle[contenthash].js",
-    clean: true
+    filename: "bundle.js",
+    clean: true,
   },
-  devtool:"source-map",
-  devServer:{
-    static:{
-        directory:path.resolve(__dirname, "dist")
+  devtool: "source-map",
+  devServer: {
+    static: {
+      directory: path.resolve(__dirname, "dist"),
     },
-    port:3000,
-    open:true,
-    hot:true,
-    compress:true,
-    historyApiFallback:true,
-    liveReload: true
+    port: 3000,
+    open: true,
+    hot: true,
+    compress: true,
+    historyApiFallback: true,
+    liveReload: true,
   },
-  watch:true,
+  watch: false,
   module: {
     rules: [
       {
@@ -50,8 +51,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "webpack",
       filename: "index.html",
-      template:"src/template.html",
-
+      template: "src/template.html",
     }),
   ],
 };

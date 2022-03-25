@@ -1,12 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webpack</title>
-</head>
-<body>
-    <button type="button" class="bg-green-500">Nayan</button>
-</body>
+  <head>
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Todo List</title>
+  </head>
+
+  <body>
+    <!-- todoList1 & todoList2 is default value  -->
+    <div
+      class="bg-white"
+      x-data="{ todoList: ['todoList1','todoList2'], enteredValue:'' }"
+    >
+      <div
+        class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8"
+      >
+        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+          <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Todo List
+          </h2>
+          <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <div class="mt-5 sm:flex sm:items-center">
+              <div class="w-full sm:max-w-xs">
+                <label htmlFor="email" class="sr-only"> Email </label>
+                <input
+                  x-model="enteredValue"
+                  type="text"
+                  name="email"
+                  id="email"
+                  class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                  placeholder="Add new task"
+                />
+              </div>
+              <button
+                @click="listOfData = todoList.filter(list => list === enteredValue); if(listOfData.length > 0) { alert('Oops! Same task found!') } else { todoList.push(enteredValue) }"
+                type="submit"
+                x-bind:disabled="!enteredValue"
+                class="mt-3 w-full inline-flex items-center justify-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white disabled:bg-slate-400 disabled:cursor-not-allowed bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+              >
+                ADD
+              </button>
+            </div>
+          </div>
+
+          <div class="py-8">
+            <ul>
+              <template x-for="todo in todoList">
+                <li
+                  class="bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md mb-2"
+                >
+                  <div class="flex justify-between items-center">
+                    <span x-text="todo"></span>
+                    <div
+                      class="w-6 cursor-pointer"
+                      @click="todoList = todoList.filter(p => p != todo)"
+                    >
+                      <img src="images/cross-icon.svg" alt="cross-icon" />
+                    </div>
+                  </div>
+                </li>
+              </template>
+              <!-- If I dont have any task in  my list i.e 0 element handled -->
+              <li
+                class="bg-white text-blue-700 shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md mb-2 text-center"
+                x-show="todoList.length === 0"
+              >
+                yah! done with the list.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
